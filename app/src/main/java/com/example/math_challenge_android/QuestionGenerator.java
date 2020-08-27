@@ -43,8 +43,9 @@ public class QuestionGenerator {
     // -------------------------------------
     public Question nextQuestion(){
 
-        int ramdonIndex = (int) (Math.random() * 5) + 0;;
-        Log.e("DEBUG",""+ramdonIndex);
+        int ramdonIndex = (int) (Math.random() * 5) + 0;
+
+        //Log.e("DEBUG",""+ramdonIndex);
         char type = operations[ramdonIndex];
         Log.e("DEBUG",""+type);
 
@@ -56,11 +57,11 @@ public class QuestionGenerator {
         switch (type) {
 
             case ADDITION:
-                answer = fisrtTerm - secondTerm;
+                answer = fisrtTerm + secondTerm;
                 break;
 
             case SUBSTRACTION:
-                answer = fisrtTerm + secondTerm;
+                answer = fisrtTerm - secondTerm;
                 break;
 
             case MULTIPLICATION:
