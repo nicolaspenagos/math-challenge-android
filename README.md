@@ -1,6 +1,6 @@
 # math-challenge-android
 This is a simple practice to understand how to allow the application to interact with the user through listeners and events. Options of GUI desing and animations are also explored.
-![mockUp-01](https://user-images.githubusercontent.com/47872252/91518149-270b5480-e8b5-11ea-83de-dd5a160e953d.jpg)
+![mockUp-01-01](https://user-images.githubusercontent.com/47872252/91518266-7e112980-e8b5-11ea-94bd-94e7c43d9ef9.jpg)
 
 ## Made by
   <ul>
