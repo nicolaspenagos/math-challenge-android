@@ -1,3 +1,8 @@
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * @author Nicolás Penagos Montoya
+ * nicolas.penagosm98@gmail.com
+ **~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
 package com.example.math_challenge_android;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -5,14 +10,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    // -------------------------------------
+    // XML references
+    // -------------------------------------
     private Button check;
     private Button tryAgain;
     private TextView question;
@@ -23,10 +33,16 @@ public class MainActivity extends AppCompatActivity {
     private QuestionGenerator questionGenerator;
     private ConstraintLayout mainLayout;
 
+    // -------------------------------------
+    // Global variables
+    // -------------------------------------
     private int scoreCounter;
     private int sec;
 
 
+    // -------------------------------------
+    // Gui methods
+    // -------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -49,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         tryAgain.setVisibility(View.GONE);
         startTimer();
 
+
         check.setOnClickListener(
 
                 (v)->{
@@ -57,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
                         feedback(true);
                         scoreCounter++;
-                        score.setText("Socore: " + scoreCounter);
+                        score.setText("Score: " + scoreCounter);
 
                     }else{
                         feedback(false);
@@ -76,8 +93,18 @@ public class MainActivity extends AppCompatActivity {
                 (v) -> {
 
                     scoreCounter = 0;
-                    score.setText("Socore: " + scoreCounter);
+                    score.setText("Score: " + scoreCounter);
                     startTimer();
+
+
+                    answer.getBackground().setAlpha(255);
+                    answer.setEnabled(true);
+
+                    check.getBackground().setAlpha(255);
+                    check.setEnabled(true);
+
+                    tryAgain.setVisibility(View.GONE);
+
 
 
                 }
@@ -100,11 +127,20 @@ public class MainActivity extends AppCompatActivity {
         new Thread(
 
                 ()->{
+                    runOnUiThread(
+                            ()-> {
+                               timer.setTextColor(Color.rgb(120, 119, 119));
+                               score.setTextColor(Color.rgb(120, 119, 119));
+                            }
+                    );
 
                     sec = 30;
                     while(sec>=0){
 
                         runOnUiThread( ()-> timer.setText(""+sec+" s"));
+
+                        if(sec==10)
+                            runOnUiThread( ()-> timer.setTextColor(Color.rgb(255, 0, 0 )));
 
                         try {
                             Thread.sleep(1000);
@@ -119,7 +155,13 @@ public class MainActivity extends AppCompatActivity {
 
                         tryAgain.setVisibility(View.VISIBLE);
 
+                        answer.getBackground().setAlpha(64);
+                        answer.setEnabled(false);
 
+                        check.getBackground().setAlpha(64);
+                        check.setEnabled(false);
+
+                        score.setTextColor(Color.rgb(0, 128, 0));
 
                     });
 
@@ -136,9 +178,9 @@ public class MainActivity extends AppCompatActivity {
                 () -> {
 
                     if(correct){
-                       runOnUiThread(() ->  mainLayout.setBackgroundColor(Color.rgb(202,220,195)));
+                       runOnUiThread(() ->  mainLayout.setBackgroundColor(Color.rgb(132,250,103)));
                     }else{
-                        runOnUiThread(() ->  mainLayout.setBackgroundColor(Color.rgb(213,90,97)));
+                        runOnUiThread(() ->  mainLayout.setBackgroundColor(Color.rgb(232,46,83)));
                     }
 
                     try {
@@ -147,12 +189,11 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    runOnUiThread(() ->  mainLayout.setBackgroundColor(Color.rgb(255,255,255)));
+                    runOnUiThread(() ->  mainLayout.setBackgroundColor(Color.rgb(249,234,59)));
 
                 }
 
         ).start();
-
 
     }
 
